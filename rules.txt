@@ -1,0 +1,19 @@
+-person_move
+if person_on_ladder = false
+    +person = e
+    +person = c
+    +person = l
+-ladder_move ->
+if person = ladder
+    +person = c & ladder = c
+    +person = e & ladder = e
+-lamp_take
+if person = lamp
+    +man_holds_lamp = true & lamp = in_hands
+-ladder_climb
+if ladder = man
+    +person_on_ladder = true
+-set_lamp
+if person = c
+if person_on_ladder = true
+    +lamp = c*

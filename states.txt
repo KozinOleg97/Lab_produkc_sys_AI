@@ -2,12 +2,10 @@ person = m
 lamp = e
 man_holds_lamp = false
 ladder = l
-man_holds_ladder = false
-man_on_ladder = false
+person_on_ladder = false
 -
 person = ladder
 lamp = c*
-man_holds_lamp = true
+person_holds_lamp = true
 ladder = c
-man_holds_ladder = false
-man_on_ladder = true
+person_on_ladder = true
