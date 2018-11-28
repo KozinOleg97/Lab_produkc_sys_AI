@@ -3,14 +3,15 @@ package com.company;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        StatesStruct oiginStates = new StatesStruct();
+        StatesStruct originStates = new StatesStruct();
         StatesStruct endStates = new StatesStruct();
-        StatesStruct curStatesMap = oiginStates;
+        StatesStruct curStatesMap = originStates;
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
@@ -27,7 +28,7 @@ public class Main {
         reader.close();
 
 
-        ArrayList<RulesStruct> ruls = new ArrayList<RulesStruct>();
+        ArrayList<RulesStruct> rules = new ArrayList<RulesStruct>();
 
         reader = new BufferedReader(
                 new InputStreamReader(
@@ -38,18 +39,45 @@ public class Main {
         while ((curStr2 = reader.readLine()) != null) {
             if (curStr2.charAt(0) == '-') {
                 if (tempRule != null) {
-                    ruls.add(tempRule);
+                    rules.add(tempRule);
                 }
                 tempRule = new RulesStruct();
             }
             tempRule.addAttribute(curStr2);
         }
-        ruls.add(tempRule);
+        rules.add(tempRule);
         reader.close();
 
+        //--------------------------------------------------------------------------------
 
-        System.out.println();
+        curStatesMap = originStates;
+
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            if (curStatesMap.equals(endStates)) {
+                System.out.println("Success");
+                curStatesMap.show();
+                return;
+            }
+
+            System.out.println("------------Available actions-----------");
+            for (RulesStruct rule : rules) {
+                if (rule.isSuitable(curStatesMap)) {
+                    System.out.println(rule.name);
+                }
+            }
+            System.out.println("----------------------------------------");
+
+            System.out.println("Select action by name:");
+            String selectedAction = in.nextLine();
+
+            //TODO print & select options
+        }
+
+        //System.out.println();
 
 
     }
+
+
 }

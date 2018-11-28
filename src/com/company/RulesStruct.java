@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RulesStruct {
-    private String name;
-    private Map conditions;
-    private List options;
+    public String name;
+    public Map<String, String> conditions;
+    public List options;
 
     RulesStruct() {
         this.name = "name not set";
@@ -46,15 +46,30 @@ public class RulesStruct {
 
     }
 
-    private HashMap conditionsAdd(String[] strMas){
+    private HashMap conditionsAdd(String[] strMas) {
         if ((strMas.length % 2) != 0) {
             throw new IllegalArgumentException("Wrong attribute: " + strMas.toString());
         }
-        HashMap <String, String> tempMap = new HashMap<String, String>();
+        HashMap<String, String> tempMap = new HashMap<String, String>();
         for (int i = 0; i < strMas.length; i += 2) {
 
             tempMap.put(strMas[i], strMas[i + 1]);
         }
         return tempMap;
+    }
+
+    public boolean isSuitable(StatesStruct statesMap) {
+
+        for (Map.Entry<String, String> pair : conditions.entrySet()) {
+            String key = pair.getKey();
+            String value = pair.getValue();
+
+
+            String value2 = statesMap.states.get(key);
+            if (!statesMap.states.get(key).equals(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,5 +1,5 @@
 -person_move
-if person_on_ladder = false & test = test
+if person_on_ladder = false
     +person = e
     +person = c
     +person = l
