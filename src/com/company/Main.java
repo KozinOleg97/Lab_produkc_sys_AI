@@ -1,6 +1,8 @@
 package com.company;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -22,9 +24,31 @@ public class Main {
             }
             curStatesMap.addStateStr(curStr);
         }
+        reader.close();
+
+
+        ArrayList<RulesStruct> ruls = new ArrayList<RulesStruct>();
+
+        reader = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream("rules.txt")));
+
+        String curStr2;
+        RulesStruct tempRule = null;
+        while ((curStr2 = reader.readLine()) != null) {
+            if (curStr2.charAt(0) == '-') {
+                if (tempRule != null) {
+                    ruls.add(tempRule);
+                }
+                tempRule = new RulesStruct();
+            }
+            tempRule.addAttribute(curStr2);
+        }
+        ruls.add(tempRule);
+        reader.close();
+
 
         System.out.println();
-
 
 
     }

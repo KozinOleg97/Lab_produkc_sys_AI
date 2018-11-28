@@ -1,9 +1,9 @@
 -person_move
-if person_on_ladder = false
+if person_on_ladder = false & test = test
     +person = e
     +person = c
     +person = l
--ladder_move ->
+-ladder_move
 if person = ladder
     +person = c & ladder = c
     +person = e & ladder = e
@@ -14,6 +14,5 @@ if person = lamp
 if ladder = man
     +person_on_ladder = true
 -set_lamp
-if person = c
-if person_on_ladder = true
+if person = c & person_on_ladder = true
     +lamp = c*
