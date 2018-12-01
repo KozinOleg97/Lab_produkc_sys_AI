@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StatesStruct {
-    public Map<String, String> states;
+    Map<String, String> states;
 
     StatesStruct() {
         states = new HashMap<String, String>();
@@ -19,12 +19,12 @@ public class StatesStruct {
         return states.get(state).toString();
     }
 
-    public void addStateStr(String str) {
+    void addStateStr(String str) {
         String[] strMas = str.split(" = ");
         states.put(strMas[0], strMas[1]);
     }
 
-    public void show() {
+    void show() {
         for (Map.Entry<String, String> pair : states.entrySet()) {
             String key = pair.getKey();
             String value = pair.getValue();

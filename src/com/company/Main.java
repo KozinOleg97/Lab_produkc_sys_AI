@@ -126,7 +126,7 @@ public class Main {
 
     }
 
-    static public void applyOption(String ruleName, Integer index, List<RulesStruct> listOfRules, StatesStruct statesMap) {
+    private static void applyOption(String ruleName, Integer index, List<RulesStruct> listOfRules, StatesStruct statesMap) {
         Map<String, String> curOption = null;
         for (RulesStruct rule : listOfRules) {
             if (rule.name.equals(ruleName)) {

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RulesStruct {
-    public String name;
-    public Map<String, String> conditions;
-    public List<HashMap<String, String>> options;
+class RulesStruct {
+    String name;
+    private Map<String, String> conditions;
+    List<HashMap<String, String>> options;
 
     RulesStruct() {
         this.name = "name not set";
@@ -16,7 +16,7 @@ public class RulesStruct {
         this.options = new ArrayList<HashMap<String, String>>();
     }
 
-    public void addAttribute(String rawAttr) {
+    void addAttribute(String rawAttr) {
         rawAttr = rawAttr.trim();
         if (rawAttr.length() < 2) {
             throw new IllegalArgumentException("Attribute is too short: " + rawAttr);
@@ -59,21 +59,16 @@ public class RulesStruct {
     }
 
 
-    public boolean isSuitable(StatesStruct statesMap) {
+    boolean isSuitable(StatesStruct statesMap) {
 
         for (Map.Entry<String, String> pair : conditions.entrySet()) {
             String key = pair.getKey();
             String value = pair.getValue();
 
-
-            String value2 = statesMap.states.get(key);
             if (!statesMap.states.get(key).equals(value)) {
 
-                String key1 = key;
-                String key2 = value;
-
-                String value01 = statesMap.states.get(key1);
-                String value02 = statesMap.states.get(key2);
+                String value01 = statesMap.states.get(key);
+                String value02 = statesMap.states.get(value);
                 if (value01 == null || value02 == null) {
                     return false;
                 }
@@ -88,7 +83,7 @@ public class RulesStruct {
         return true;
     }
 
-    public void printOptions() {
+    void printOptions() {
         int index = 1;
         for (HashMap<String, String> option : options) {
             System.out.print(index + ")  ");
