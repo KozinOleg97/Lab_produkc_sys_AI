@@ -4,15 +4,18 @@ if person_on_ladder = false
     +person = c
     +person = l
 -ladder_move
-if person = ladder
+if person = ladder & person_on_ladder = false
     +person = c & ladder = c
     +person = e & ladder = e
 -lamp_take
-if person = lamp
-    +man_holds_lamp = true & lamp = in_hands
--ladder_climb
-if ladder = man
+if person = lamp & person_on_ladder = false
+    +lamp = person
+-ladder_climb_up
+if ladder = person & person_on_ladder = false
     +person_on_ladder = true
+-ladder_climb_down
+if ladder = person & person_on_ladder = true
+    +person_on_ladder = false
 -set_lamp
-if person = c & person_on_ladder = true
+if person = c & person_on_ladder = true & lamp = person
     +lamp = c*

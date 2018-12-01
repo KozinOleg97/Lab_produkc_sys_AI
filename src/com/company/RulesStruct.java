@@ -8,7 +8,7 @@ import java.util.Map;
 public class RulesStruct {
     public String name;
     public Map<String, String> conditions;
-    public List options;
+    public List<HashMap<String, String>> options;
 
     RulesStruct() {
         this.name = "name not set";
@@ -58,6 +58,7 @@ public class RulesStruct {
         return tempMap;
     }
 
+
     public boolean isSuitable(StatesStruct statesMap) {
 
         for (Map.Entry<String, String> pair : conditions.entrySet()) {
@@ -67,9 +68,39 @@ public class RulesStruct {
 
             String value2 = statesMap.states.get(key);
             if (!statesMap.states.get(key).equals(value)) {
-                return false;
+
+                String key1 = key;
+                String key2 = value;
+
+                String value01 = statesMap.states.get(key1);
+                String value02 = statesMap.states.get(key2);
+                if (value01 == null || value02 == null) {
+                    return false;
+                }
+
+                if (!value01.equals(value02)) {
+                    return false;
+
+                }
             }
         }
+
         return true;
     }
+
+    public void printOptions() {
+        int index = 1;
+        for (HashMap<String, String> option : options) {
+            System.out.print(index + ")  ");
+            for (Map.Entry<String, String> optionParts : option.entrySet()) {
+                String key = optionParts.getKey();
+                String value = optionParts.getValue();
+                System.out.print(key + " = " + value + "  ");
+            }
+            System.out.println();
+            index++;
+        }
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -54,15 +55,32 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         while (true) {
-            if (curStatesMap.equals(endStates)) {
+            boolean finishFlag = true;
+
+            for (Map.Entry<String, String> pair : endStates.states.entrySet()) {
+                String key = pair.getKey();
+                String value = pair.getValue();
+
+                String value2 = curStatesMap.states.get(key);
+
+                if (!value.equals(value2)) {
+                    finishFlag = false;
+                    break;
+                }
+            }
+
+            if (finishFlag) {
                 System.out.println("Success");
                 curStatesMap.show();
                 return;
             }
 
+
+            boolean oneOptionFlag = false;
             System.out.println("------------Available actions-----------");
             for (RulesStruct rule : rules) {
                 if (rule.isSuitable(curStatesMap)) {
+
                     System.out.println(rule.name);
                 }
             }
@@ -71,12 +89,53 @@ public class Main {
             System.out.println("Select action by name:");
             String selectedAction = in.nextLine();
 
-            //TODO print & select options
+
+            for (RulesStruct rule : rules) {
+                if (rule.name.equals(selectedAction)) {
+                    if (rule.options.size() == 1) {
+                        oneOptionFlag = true;
+                        break;
+                    }
+                }
+
+            }
+
+            if (!oneOptionFlag) {
+                System.out.println("------------" + selectedAction + "-----------");
+                for (RulesStruct rule : rules) {
+                    if (rule.name.equals(selectedAction)) {
+
+                        rule.printOptions();
+                    }
+                }
+                System.out.println("----------------------------------------");
+
+
+                System.out.println("Select option by index:");
+                Integer selectedOption = in.nextInt();
+                in.nextLine();
+
+                applyOption(selectedAction, selectedOption, rules, curStatesMap);
+            } else {
+                applyOption(selectedAction, 1, rules, curStatesMap);
+            }
         }
 
         //System.out.println();
 
 
+    }
+
+    static public void applyOption(String ruleName, Integer index, List<RulesStruct> listOfRules, StatesStruct statesMap) {
+        Map<String, String> curOption = null;
+        for (RulesStruct rule : listOfRules) {
+            if (rule.name.equals(ruleName)) {
+                curOption = rule.options.get(index - 1);
+                break;
+            }
+        }
+
+        statesMap.states.putAll(curOption);
     }
 
 
